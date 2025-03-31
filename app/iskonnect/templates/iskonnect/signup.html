@@ -1,0 +1,104 @@
+{% extends "iskonnect/base.html" %}
+
+{% block title %}Sign Up - iSKonnect{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-form-container">
+        <h2>Create an iSKonnect Account</h2>
+        
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            Please correct the errors below.
+        </div>
+        {% endif %}
+        
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_student_number">Student Number:</label>
+                {{ form.student_number }}
+                {% if form.student_number.errors %}
+                <div class="error">
+                    {% for error in form.student_number.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <small class="form-text text-muted">Format: YYYY-NNNNN-CC-D (e.g., 2023-00239-MN-0)</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_first_name">First Name:</label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                <div class="error">
+                    {% for error in form.first_name.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_last_name">Last Name:</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                <div class="error">
+                    {% for error in form.last_name.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="form-group">
+                <label for="id_pup_webmail">PUP Webmail:</label>
+                {{ form.pup_webmail }}
+                {% if form.pup_webmail.errors %}
+                <div class="error">
+                    {% for error in form.pup_webmail.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <small class="form-text text-muted">Must end with @iskolarngbayan.pup.edu.ph</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                <div class="error">
+                    {% for error in form.password.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <small class="form-text text-muted">Minimum 8 characters</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_confirm_password">Confirm Password:</label>
+                {{ form.confirm_password }}
+                {% if form.confirm_password.errors %}
+                <div class="error">
+                    {% for error in form.confirm_password.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </div>
+        </form>
+        
+        <div class="auth-links">
+            <a href="{% url 'login' %}">Already have an account? Log in</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

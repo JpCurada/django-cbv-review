@@ -1,0 +1,56 @@
+{% extends "iskonnect/base.html" %}
+
+{% block title %}Login - iSKonnect{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-form-container">
+        <h2>Login to iSKonnect</h2>
+        
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            Invalid student number or password. Please try again.
+        </div>
+        {% endif %}
+        
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_username">Student Number:</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                <div class="error">
+                    {% for error in form.username.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <small class="form-text text-muted">Format: YYYY-NNNNN-CC-D (e.g., 2023-00239-MN-0)</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                <div class="error">
+                    {% for error in form.password.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+        
+        <div class="auth-links">
+            <a href="{% url 'password_reset' %}">Forgot Password?</a>
+            <span class="separator">|</span>
+            <a href="{% url 'signup' %}">Create Account</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
